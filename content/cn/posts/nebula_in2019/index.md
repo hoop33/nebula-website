@@ -1,5 +1,5 @@
 ---
-titile: Nebula Graph in 2019：It's Worth the Effort
+title: "Nebula Graph in 2019：It's Worth the Effort"
 date: 2019-12-27
 ---
 
