@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-xs-8 col-md-9 text">
                             <h3 href="{{.Permalink}}">{{.Date.Format "2006-01-02"}} | {{.Title}}</h3>
-                            <p class="pc-content">{{ .Summary | truncate 300 }}</p>
+                            <p class="pc-content">{{ .Summary | truncate 200 }}</p>
                             <p class="mobile-content">{{ .Summary | truncate 50 }}</p>
                         </div>
                     </a>

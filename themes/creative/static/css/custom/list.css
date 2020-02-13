@@ -58,7 +58,7 @@
 @media(min-width: 768px) {
   .blog-list .list img {
     width: 150px;
-    height: 150px;
+    height: 100px;
   }
 
   .blog-list p {
@@ -80,6 +80,7 @@
 
   .blog-list .pc-content {
     display: block;
+    height: 84px;
   }
 } 
 
@@ -105,12 +106,13 @@
 
   .blog-list .list img {
     width: 64px;
-    height: 64px;
+    height: 43px;
+    margin-top: 16px;
   }
 }
 
 @media screen and (min-width:768px) and (max-width:1200px) {
-    .blog-list .list {
-        width: 720px;
-    }
+  .blog-list .list {
+      width: 720px;
+  }
 }
