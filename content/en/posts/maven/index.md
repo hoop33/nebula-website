@@ -1,5 +1,5 @@
 ---
-title: Dev Log | How to Release jar Package to the Maven Central Repository
+title: "Dev Log | How to Release jar Package to the Maven Central Repository"
 date: 2019-12-16
 ---
 

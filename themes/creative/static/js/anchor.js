@@ -20,12 +20,15 @@ $(document).ready(function () {
                 var headCounts = [$h1.length, $h2.length, $h3.length, $h4.length, $h5.length, $h6.length];
                 var vH1Tag = null;
                 var vH2Tag = null;
+                var vH3Tag = null;
                 for (var i = 0; i < headCounts.length; i++) {
                         if (headCounts[i] > 0) {
                                 if (vH1Tag == null) {
                                         vH1Tag = 'h' + (i + 1);
                                 } else if (vH2Tag == null) {
                                         vH2Tag = 'h' + (i + 1);
+                                } else if (vH3Tag == null) {
+                                        vH3Tag = 'h' + (i + 1);
                                         break;
                                 }
                         }
@@ -43,7 +46,8 @@ $(document).ready(function () {
 
                 var vH1Index = 0;
                 var vH2Index = 0;
-                $("body").find(vH1Tag + (vH2Tag != null ? (',' + vH2Tag) : '')).each(function (i, item) {
+                var vH3Index = 0;
+                $("body").find(vH1Tag + (vH2Tag != null ? (',' + vH2Tag) : '') + (vH3Tag != null ? (',' + vH3Tag) : '')).each(function (i, item) {
                         var id = '';
                         var name = '';
                         var tag = $(item).get(0).tagName.toLowerCase();
@@ -56,8 +60,14 @@ $(document).ready(function () {
                         } else if (tag == vH2Tag) {
                                 id = vH1Index + '_' + ++vH2Index;
                                 name = vH1Index + '.' + vH2Index;
+                                vH3Index = 0;
                                 className = 'item_h2';
+                        } else if (tag == vH3Tag) {
+                                id = vH1Index + '_' + vH2Index + '_' + ++vH3Index;
+                                name = vH1Index + '.' + vH2Index + '.' + vH3Index ;
+                                className = 'item_h3';
                         }
+
                         $(item).attr("id", "wow" + id);
                         $(item).addClass("wow_head");
                         var originText = $(item).text();
