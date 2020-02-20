@@ -2,6 +2,14 @@
   {{ .Title }}
 {{ end }}
 
+{{ define "description" }}
+  {{ with .Description }}
+    <meta name="description" content="{{.}}">
+  {{ else }}
+    <meta name="description" content="{{.Site.Params.description}}">
+  {{ end }}
+{{ end }}
+
 {{ define "main" }}
   <main class="blog-detail">
     <div class="wrapper">

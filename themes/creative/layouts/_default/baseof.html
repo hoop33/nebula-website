@@ -9,10 +9,8 @@
             <meta name="author" content="{{ . }}">
         {{ end }}
         {{ end }}
-        {{ with .Site.Params.description }}
         {{ block "description" . }}
-            <meta name="description" content="{{ . }}">
-        {{ end }}
+            <meta name="description" content="{{ .Site.Params.description }}">
         {{ end }}
         {{ .Hugo.Generator }}
         <title>

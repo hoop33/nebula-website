@@ -15,6 +15,38 @@
   width: 100%;
 }
 
+.blog-content table {
+  margin-top: 24px;
+  width: 95%;
+  padding: 12px;
+  color: #212529;
+}
+
+.blog-content th, .blog-content td {
+  vertical-align: bottom;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  text-align: center;
+  padding: .75rem;
+  font-size: 16px;
+}
+
+.blog-content th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+.blog-content td {
+  font-weight: 100;
+}
+
+.blog-content tbody tr:nth-child(even) {
+  background-color: rgba(0,0,0,.05);
+}
+
 @media(min-width: 768px) {
   .blog-detail .blog-content {
     margin: auto;
