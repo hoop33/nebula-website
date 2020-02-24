@@ -2,6 +2,30 @@
   {{ .Title }}
 {{ end }}
 
+{{ define "twitter" }}
+  {{ with .Description }}
+    <meta property="twitter:card" content="{{.}}">
+    {{ with .Resources }}
+      {{ with .GetMatch "{*.jpg,*.png,*.jpeg}" }}
+          {{ $cover := .Resize "600x" }}
+          {{ with $cover }}
+              <meta property="twitter:image" content="{{ .Permalink }}"/>      
+          {{ end }} 
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    <meta property="twitter:card" content="{{.Site.Params.description}}">
+    {{ with .Resources }}
+      {{ with .GetMatch "{*.jpg,*.png,*.jpeg}" }}
+          {{ $cover := .Resize "600x" }}
+          {{ with $cover }}
+              <meta property="twitter:image" content="{{ .Permalink }}"/>      
+          {{ end }} 
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 {{ define "description" }}
   {{ with .Description }}
     <meta name="description" content="{{.}}">
