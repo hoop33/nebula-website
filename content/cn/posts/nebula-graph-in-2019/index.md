@@ -1,6 +1,7 @@
 ---
 title: "Nebula Graph in 2019：It's Worth the Effort"
 date: 2019-12-27
+description: "在 2019 年 5 月，我们开源了，有了自己的图数据库社区，Nebula Graph 经历了从 0 到 1 的过程，从 alpha 到 v1.0.0-rc2 我们一直在变得更好。"
 ---
 
 # Nebula Graph in 2019：It's Worth the Effort

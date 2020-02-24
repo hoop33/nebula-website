@@ -1,6 +1,7 @@
 ---
 title: 图数据库 Nebula Graph 的安装部署
 date: 2019-08-20
+description: "Nebula Graph 提供两种部署方式：单机和集群，本文将带你实践一番图数据库的安装部署"
 ---
 
 # 图数据库 Nebula Graph 的安装部署
@@ -30,7 +31,7 @@ date: 2019-08-20
 
 感谢 Nebula Graph 社区 Committer 伊兴路供稿本文。
 
-### Nebula Graph整体架构
+### Nebula Graph 整体架构
 
 ![image](https://user-images.githubusercontent.com/56643819/72507147-4dc4cf80-387e-11ea-9bfc-57d9190a9112.png)
 

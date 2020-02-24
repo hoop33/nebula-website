@@ -1,6 +1,7 @@
 ---
 title: "Vol.03 nMeetup | 图数据库综述与 Nebula 在图数据库设计的实践"
 date: 2019-08-10
+description: "从图数据库是什么讲起，到图数据库的设计思路，本文是一个全面的图数据库设计实践分享。"
 ---
 
 # Vol.03 nMeetup | 图数据库综述与 Nebula 在图数据库设计的实践

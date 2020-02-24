@@ -1,6 +1,7 @@
 ---
 title: "应用 AddressSanitizer 发现程序内存错误"
 date: 2020-02-18
+description: "作为 C/ C++ 工程师，在开发过程中会遇到各类问题，最常见便是内存使用问题，本文讲述了如何使用 Google 开源的 AddressSanitizer 来检测内存问题。"
 ---
 
 # 应用 AddressSanitizer 发现程序内存错误

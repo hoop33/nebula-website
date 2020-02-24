@@ -1,6 +1,7 @@
 ---
 title: "Nebula 架构剖析系列（二）图数据库的查询引擎设计"
 date: 2019-11-21
+description: "本篇文章将带你了解 Nebula Query Engine 的架构。"
 ---
 
 # Nebula 架构剖析系列（二）图数据库的查询引擎设计

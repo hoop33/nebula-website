@@ -1,6 +1,7 @@
 ---
 title: "Pick of the Week'20 | 第 6 周看点--DB-Engine 2 月图数据库排名发榜"
 date: 2020-02-07
+description: "本周看点：DB-Engine 2020 年 2 月图数据库趋势发布…"
 ---
 # Pick of the Week'20 | 第 6 周看点--DB-Engine 2 月图数据库排名发榜
 

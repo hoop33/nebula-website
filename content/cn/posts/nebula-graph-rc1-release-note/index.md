@@ -1,6 +1,7 @@
 ---
 title: "图数据库 Nebula Graph RC1 Release Note"
 date: 2019-11-05
+description: "本次 RC1 主要增强了 nGQL，新增 LIMIT, GROUP BY 等语句；算法方面增加了最短路径，全路径搜索…"
 ---
 
 # 图数据库 Nebula Graph RC1 Release Note

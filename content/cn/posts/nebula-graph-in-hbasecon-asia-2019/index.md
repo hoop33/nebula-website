@@ -1,6 +1,7 @@
 ---
 title: "图数据库 Nebula Graph 在 HBaseCon Asia2019 的分享实录"
 date: 2019-07-28
+description: "本文整理自 Nebula Graph 技术总监参加 HBaseCon Asia2019 的演讲。"
 ---
 
 # 图数据库 Nebula Graph 在 HBaseCon Asia2019 的分享实录

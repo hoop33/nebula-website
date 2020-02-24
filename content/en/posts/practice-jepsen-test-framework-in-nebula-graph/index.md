@@ -1,6 +1,7 @@
 ---
 title: "Practice Jepsen Test Framework in Nebula Graph"
 date: 2020-01-14
+description: "This article introduces how Nebula Graph, an open-source distributed graph database, uses Jepsen test framework to ensure system data consistency."
 ---
 
 # Practice Jepsen Test Framework in Nebula Graph

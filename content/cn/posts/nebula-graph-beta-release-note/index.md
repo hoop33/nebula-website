@@ -1,6 +1,7 @@
 ---
 title: 图数据库 Nebula Graph v.1.0.0-beta 已上线
 date: 2019-08-20
+description: "在 Beta 版本中我们支持了集群部署、新增 Java importer 等内容"
 ---
 
 #  图数据库 Nebula Graph v.1.0.0-beta 已上线

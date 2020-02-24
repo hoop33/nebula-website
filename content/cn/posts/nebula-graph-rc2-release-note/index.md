@@ -1,6 +1,7 @@
 ---
 title: "分布式图数据库 Nebula RC2 发布：增强了 CSV Importer 功能 "
 date: 2019-12-05
+description: "本次 RC2 主要新增 GO FROM ... REVERSELY 和 GROUP BY 等语句，Storage Engine 也更灵活…"
 ---
 
 # 分布式图数据库 Nebula RC2 发布：增强了 CSV Importer 功能 

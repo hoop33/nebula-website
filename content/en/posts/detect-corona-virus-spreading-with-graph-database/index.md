@@ -1,6 +1,7 @@
 ---
 title: "Detect Corona Virus Spreading With Graph Database Based on a Real Case"
 date: 2020-02-06
+description: "This post provides a possible way to detect the nCov spreading path with graph technology, covering thoughts on modeling and queries."
 ---
 # Detect Corona Virus Spreading With Graph Database Based on a Real Case
 

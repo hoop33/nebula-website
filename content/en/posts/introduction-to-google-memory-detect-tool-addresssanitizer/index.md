@@ -1,6 +1,7 @@
 ---
 title: "An Introduction to Google's Memory Error Detect Tool AddessSanitizer"
 date: 2020-02-18
+description: "This posts introduces to you Google’s memory error detect tool AddressSanitizer, covering what it is, how it works, and some best practices."
 ---
 
 # An Introduction to Google's Memory Error Detect Tool AddessSanitizer

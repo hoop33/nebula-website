@@ -1,6 +1,7 @@
 ---
 title: "分布式图数据库 Nebula Graph 中的集群快照实践"
 date: 2019-12-06
+description: "当集群处于无法启动或数据失效的状态时，重新搭建集群并重新倒入数据都将是一个繁琐并耗时的工程。针对此问题，Nebula Graph 提供了集群 snapshot 的创建功能。"
 ---
 
 # 分布式图数据库 Nebula Graph 中的集群快照实践

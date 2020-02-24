@@ -1,6 +1,7 @@
 ---
 title: "Pick of the Week'20 | 第 7 周看点--Nebula 论坛上线"
 date: 2020-02-14
+description: "本周看点：Nebula 官方论坛上线、支持 ttl，指定数据的有效期…"
 ---
 # Pick of the Week'20 | 第 7 周看点--Nebula 论坛上线
 

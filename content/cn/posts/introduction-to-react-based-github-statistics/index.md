@@ -1,6 +1,7 @@
 ---
 title: "Github Statistics 一个基于 React 的 GitHub 数据统计工具 "
 date: 2019-12-25
+description: "不论 Star、Fork 和 Commit，issue 、pr 也应该是一个开源项目社区关注的数据。在本文我们将了解到市面上有哪些 GitHub 数据统计工具"
 ---
 
 # Github Statistics 一个基于 React 的 GitHub 数据统计工具 

@@ -1,6 +1,7 @@
 ---
 title: "使用 Docker 构建 Nebula Graph 源码"
 date: 2019-09-06
+description: "由于 Nebula Graph 依赖较多，为了方便开发者本地编译项目源码， Nebula Graph 官方为大家提供了一个预安装所有依赖的 Docker 镜像"
 ---
 
 # 使用 Docker 构建 Nebula Graph 源码

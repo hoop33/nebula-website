@@ -1,6 +1,7 @@
 ---
 title: "图数据库 Nebula Graph RC3 Release Note"
 date: 2020-02-07
+description: "本次 RC3 主要新增 dump_tools 工具，导出指定条件的数据；发布 GUI 工具 Nebula Graph Studio；新增扫描点边接口，对接 OLAP…"
 ---
 # 图数据库 Nebula Graph RC3 Release Note
 

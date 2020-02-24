@@ -1,6 +1,7 @@
 ---
 title: "Nebula Graph Architecture — A Bird’s View"
 date: 2019-12-24
+description: "Nebula Graph is an open-source, distributed, highly performant graph database. This article explains its technical architecture in detail."
 ---
 # Nebula Graph Architecture — A Bird’s View
 

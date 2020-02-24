@@ -1,6 +1,7 @@
 ---
 title: "使用图数据库 Nebula Graph 数据导入快速体验知识图谱 OwnThink"
 date: 2019-11-26
+description: "本文介绍如何将知识图谱数据快速导入图数据库 Nebula Graph 中并做简单的 CRUD"
 ---
 
 # 使用图数据库 Nebula Graph 数据导入快速体验知识图谱 OwnThink

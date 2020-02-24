@@ -1,6 +1,7 @@
 ---
 title: "图数据库 Nebula Graph 的数据模型和系统架构设计"
 date: 2019-07-24
+description: "在本文中我们将讲述图数据库 Nebula Graph 的常用概念及系统架构模型"
 ---
 
 # 图数据库 Nebula Graph 的数据模型和系统架构设计

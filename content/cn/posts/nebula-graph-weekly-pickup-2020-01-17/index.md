@@ -1,6 +1,7 @@
 ---
 title: "Pick of the Week'20 | 第 3 周看点--Nebula Graph Studio 来了"
 date: 2020-01-17
+description: "本周看点：Index 支持获取给定点的所有属性，Spark Writer 支持将不同数据源数据插入同一 Tag / Edgetype…"
 ---
 # Pick of the Week'20 | 第 3 周看点--Nebula Graph Studio 来了
 

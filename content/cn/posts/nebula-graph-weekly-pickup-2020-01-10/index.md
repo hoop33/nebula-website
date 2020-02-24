@@ -1,6 +1,7 @@
 ---
 title: "Pick of the Week'20 | 第 2 周看点--Nebula Graph UI 内测中"
 date: 2020-01-10
+description: "本周看点：Nebula Graph UI 1.0 版本内测中、Index 支持点边属性创建索引…"
 ---
 # Pick of the Week'20 | 第 2 周看点--Nebula Graph UI 内测中
 

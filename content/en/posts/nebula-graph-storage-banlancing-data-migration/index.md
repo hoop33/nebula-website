@@ -1,6 +1,7 @@
 ---
 title: "Storage Balance and Data Migration"
 date: 2020-02-04
+description: "This post explains in detail how Nebula Graph handles data balancing and data migration at the storage layer."
 ---
 
 # Storage Balance and Data Migration

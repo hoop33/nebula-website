@@ -1,6 +1,7 @@
 ---
 title: Jepsen 测试框架在图数据库 Nebula Graph 中的实践
 date: 2020-01-09
+description: "在本篇文章中主要介绍图数据库 Nebula Graph 在 Jepsen 这块的实践"
 ---
 
 # Jepsen 测试框架在图数据库 Nebula Graph 中的实践

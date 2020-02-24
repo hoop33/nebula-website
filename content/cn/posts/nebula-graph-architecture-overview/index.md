@@ -1,6 +1,7 @@
 ---
 title: Nebula 架构剖析系列（零）图数据库的整体架构设计
 date: 2019-10-14
+description: "本文为大家介绍图数据库 Nebula Graph 的整体架构。"
 ---
 
 # Nebula 架构剖析系列（零）图数据库的整体架构设计

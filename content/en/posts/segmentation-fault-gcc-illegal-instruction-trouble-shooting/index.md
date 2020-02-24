@@ -1,6 +1,7 @@
 ---
 title: "Compiling Trouble Shooting: Segmentation Fault and GCC Illegal Instruction"
 date: 2020-01-12
+description: "This article shares the trouble shooting steps of two compiling errors: Segmentation fault and illegal instruction."
 ---
 
 # Compiling Trouble Shooting: Segmentation Fault and GCC Illegal Instruction

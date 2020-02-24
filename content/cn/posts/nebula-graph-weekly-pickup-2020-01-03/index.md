@@ -1,6 +1,7 @@
 ---
 title: "Pick of the Week'20 | 第 1 周看点--Nebula Graph 上 DB-Engine 图数据库榜单"
 date: 2020-01-03
+description: "本周看点：Nebula 嘉年华直播视频发布，DB-Engine 图数据库榜上 Nebula Graph 榜上有名…"
 ---
 
 # Pick of the Week'20 | 第 1 周看点--Nebula Graph 上 DB-Engine 图数据库榜单

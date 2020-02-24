@@ -1,6 +1,7 @@
 ---
 title: "图数据库爱好者的聚会在谈论什么？"
 date: 2019-09-12
+description: "本次分享主要介绍了 Nebula Graph 的特性，以及新上线的[《使用 Docker 构建 Nebula Graph》"
 ---
 
 # 图数据库爱好者的聚会在谈论什么？

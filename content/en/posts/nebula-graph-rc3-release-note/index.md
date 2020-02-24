@@ -1,6 +1,7 @@
 ---
 title: "Nebula Graph RC3 Release Note"
 date: 2020-02-07
+description: "Check what’s new in Nebula Graph’s RC3 release: Nebula Graph Studio 1.0 Beta for data visualization, index, Spark Writer, and much more."
 ---
 
 # RC3 Release  Note

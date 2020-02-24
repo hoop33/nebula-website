@@ -1,6 +1,7 @@
 ---
 title: "Being on Hacker News Front Page Brought Us Much More than Just 300+ Stars on GitHub within 24 hours"
 date: 2020-01-15
+description: "A submission about Nebula Graph has hit the front page of Hacker News. This post explains how, what, and why."
 ---
 
 # Being on Hacker News Front Page Brought Us Much More than Just 300+ Stars on GitHub within 24 hours
