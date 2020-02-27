@@ -3,23 +3,29 @@
 {{ end }}
 
 {{ define "twitter" }}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@NebulaGraph">
+  <meta name="twitter:creator" content="@NebulaGraph">
+  <meta name="twitter:domain" content="nebula-graph.io">
+  <meta name="twitter:title" content="{{.Title}}">
+  <meta property="twitter:title" content="{{.Title}}">
   {{ with .Description }}
-    <meta property="twitter:card" content="{{.}}">
-    {{ with .Resources }}
+    <meta name="twitter:description" content="{{.}}">
+    {{ with $.Resources }}
       {{ with .GetMatch "{*.jpg,*.png,*.jpeg}" }}
           {{ $cover := .Resize "600x" }}
           {{ with $cover }}
-              <meta property="twitter:image" content="{{ .Permalink }}"/>      
+              <meta name="twitter:image" content="{{ .Permalink }}"/>
           {{ end }} 
       {{ end }}
     {{ end }}
   {{ else }}
-    <meta property="twitter:card" content="{{.Site.Params.description}}">
+    <meta name="twitter:description" content="{{.Site.Params.description}}">
     {{ with .Resources }}
       {{ with .GetMatch "{*.jpg,*.png,*.jpeg}" }}
           {{ $cover := .Resize "600x" }}
           {{ with $cover }}
-              <meta property="twitter:image" content="{{ .Permalink }}"/>      
+              <meta name="twitter:image" content="{{ .Permalink }}"/>      
           {{ end }} 
       {{ end }}
     {{ end }}

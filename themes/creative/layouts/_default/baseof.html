@@ -11,8 +11,11 @@
         {{ end }}
 
         {{ block "twitter" . }}
-            <meta property="twitter:card" >
-            <meta property="twitter:image" >
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:site" content="@nebula">
+            <meta name="twitter:creator" content="@NebulaGraph">
+            <meta name="twitter:title" content="{{.Site.Title}}">
+            <meta name="twitter:description" content="{{.Site.Params.description}}">
         {{ end }}
 
         {{ block "description" . }}

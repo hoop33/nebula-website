@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - jerry-dev
 
 jobs:
   build-and-deploy:
@@ -10,14 +11,32 @@ jobs:
     steps:
     - name: Checkout Github Action
       uses: actions/checkout@master
+
+    - name: Install Open VPN
+      run: sudo apt-get install openvpn
     
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
-        hugo-version: '0.62.2'
+        hugo-version: '0.65.3'
 
     - name: Setup sshpass
       run: sudo apt-get install sshpass
+
+    - name: Connect VPN
+      uses: golfzaptw/action-connect-ovpn@master
+      id: connect_vpn
+      with:
+        PING_URL: ${{ secrets.HOST }} 
+        FILE_OVPN: '.github/vpn/config.ovpn'
+        SECRET: ${{ secrets.VPN_USER_PASS }}
+      env:
+        CA_CRT: ${{ secrets.VPN_CA }}
+        USER_CRT: ${{ secrets.VPN_CRT }}
+        USER_KEY: ${{ secrets.VPN_KEY }}
+
+    - name: Check Connect VPN
+      run: echo ${{ steps.connect_vpn.outputs.STATUS }}
 
     - name: Build
       run: hugo --minify -d nebula-website
@@ -28,5 +47,10 @@ jobs:
           local: nebula-website
           remote: /home/vesoft/nebula-website
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER_NAME }}
+          username: vesoft
           password: ${{ secrets.PASSWORD }}
+          concurrency: 20
+
+    - name: Kill VPN
+      if: always()
+      run: sudo killall openvpn
