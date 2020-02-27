@@ -54,14 +54,16 @@
         <script src="{{ "js/jquery.js" | relURL }}"></script>
         <script src="{{ "js/anchor.js" | relURL }}"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60523578-5"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        {{ if not .Site.IsServer }}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60523578-5"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-        gtag('config', 'UA-60523578-5');
-        </script>
+                gtag('config', 'UA-60523578-5');
+            </script>
+        {{ end }}
     </head>
     <body id="page-top">
         {{ partial "nav.html" . }}
