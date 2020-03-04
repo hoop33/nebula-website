@@ -84,7 +84,7 @@ defaultContentLanguageInSubdir = false
       [languages.en.params.header]
         # To change the background of the header section, replace the 'header.jpg' at './static/img' with your own.
         slogan     = "Nebula Graph"
-        subtitle   = "A truly distributed, linear scalable, lighting-fast graph database."
+        subtitle   = "A truly distributed, linear scalable, lightning-fast graph database."
         buttonText = "Get Started"
 
       # Footer section
