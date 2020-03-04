@@ -6,7 +6,7 @@ description: "Graph users have to learn different graph query languages using di
 
 # Graph Query Language Comparison Series - Gremlin vs Cypher vs nGQL
 
-In September 2019, [Graph Query Language](https://www.gqlstandards.org/home) is accepted as a new database query language in a vote by the International SQL Standards Committee, the unification of GQL takes time.   
+In September 2019, [Graph Query Language](https://www.gqlstandards.org/home) is accepted as a new database query language in a vote by the International SQL Standards Committee, the unification of GQL takes time.  
 
 ![image](https://user-images.githubusercontent.com/38887077/75741236-f357d380-5d44-11ea-8c43-65283b49bbef.png)
 
@@ -38,7 +38,7 @@ The language was designed with the power and capability of SQL. The keywords of 
 
 The keywords of the nGQL language are case sensitive and it support statement composition so that there's no need for statement embedding.
 
-**Support graph databases**: Nebula Graph
+**Support graph databases: **Nebula Graph
 
 ## Terms Comparison
 
@@ -56,6 +56,7 @@ Before comparing the three graph query languages, let's take a look at their ter
 | Delete | drop | delete | delete / drop |
 | Update | setProperty | set | update |
 
+
 ## Syntax Comparison - CRUD
 
 After understanding the common terms in Gremlin, Cypher, and nGQL, let's take a look at the general syntax of these graph query languages.
@@ -63,7 +64,6 @@ After understanding the common terms in Gremlin, Cypher, and nGQL, let's take a 
 This section will walk you through the basic CRUD syntax for Gremlin, Cypher and nGQL respectively.
 
 ### Graph
-
 Refer to the following example on how to create a graph space. We omitted Cypher since you don't need to create a graph space before you can add any data to the graph databases.
 
 ```shell
@@ -85,10 +85,10 @@ Refer to the following example on inserting new vertex in these query languages 
 g.addV(vertexLabel).property()
 
 # Insert vertex in Cypher
-CREATE (:nodeLabel {property()})
+CREATE (:nodeLabel {property})
 
 # Insert vertex in nGQL
-INSERT VERTEX tagName (propNameList) VALUES vid:(tagValue propValue)
+INSERT VERTEX tagName (propNameList) VALUES vid:(tagKey propValue)
 ```
 
 #### Vertex Type
@@ -107,9 +107,6 @@ Refer to the following example on vertex type creation. We omitted Cypher since 
 # Create vertex type in Gremlin
 g.addV(vertexLabel).property()
 
-# Create vertex type in Cypher
-(n:lable)
-
 # Create vertex type in nGQL
 CREATE tagName(PropNameList)
 ```
@@ -122,12 +119,13 @@ When the vertex types are created, you can show them with the following queries.
 
 ```shell
 # Show vertex types in Gremlin
-g.V().label()
+g.V().label().dedup();
 
-# Show vertex types in Cypher
-MATCH (n)
+# Show vertex types in Cypher method 1
+MATCH (n) 
 RETURN DISTINCT labels(n)
-##CALL db.labels();
+# Show vertex types in Cypher method 2
+CALL db.labels();
 
 # Show vertex types in nGQL
 SHOW TAGS
@@ -144,7 +142,7 @@ This section introduces the basic CRUD operations on vertices using the three qu
 g.addV(String vertexLabel).property()
 
 # Insert vertex of certain type in Cypher
-CREATE (:Person {age: 16})
+CREATE (node:label) 
 
 # Insert vertex of certain type in nGQL
 INSERT VERTEX <tag_name> (prop_name_list) VALUES <vid>:(prop_value_list)
@@ -157,8 +155,8 @@ INSERT VERTEX <tag_name> (prop_name_list) VALUES <vid>:(prop_value_list)
 g.V(<vid>)
 
 # Fetch vertices in Cypher
-MATCH (n)
-WHERE id(n) = vid 
+MATCH (n) 
+WHERE condition
 RETURN properties(n)
 
 # Fetch vertices in nGQL
@@ -172,8 +170,8 @@ FETCH PROP ON <tag_name> <vid>
 g.V(<vid>).drop()
 
 # Delete a vertex in Cypher
-MATCH (n:A)
-DETACH DELETE n
+MATCH (node:label) 
+DETACH DELETE node
 
 # Delete vertex in nGQL
 DELETE VERTEX <vid>
@@ -188,8 +186,7 @@ This section shows you how to update properties for vertex.
 g.V(<vid>).property()
 
 # Update vertex in Cypher
-MATCT (n {condition}) 
-SET n.name = V
+SET n.prop = V
 
 # Update vertex in nGQL
 UPDATE VERTEX <vid> SET <update_columns>
@@ -209,9 +206,6 @@ Like vertices, edges can also have types.
 # Create an edge type in Gremlin
 g.edgeLabel()
 
-# Create an edge type in Cypher
-:relationship(proNameList)
-
 # Create an edge type in nGQL
 CREATE EDGE edgeTypeName(propNameList)
 ```
@@ -222,7 +216,7 @@ CREATE EDGE edgeTypeName(propNameList)
 
 Inserting an edge is similar to inserting vertices. Cypher  uses `-[]->` and and nGQL uses `->` to represent edges respectively. Gremlin uses the keyword `to()` to indicate edge direction.
 
-Edges are by default directional in the three languages. 
+Edges are by default directed in the three languages. The chart on the left below is a directed edge while the one on the right is an undirected edge.
 
 ![image](https://user-images.githubusercontent.com/38887077/75741248-fbb00e80-5d44-11ea-9c80-0c11fd41a277.png)
 
@@ -231,8 +225,9 @@ Edges are by default directional in the three languages.
 g.addE(String edgeLabel).from(v1).to(v2).property()
 
 # Insert edge of certain type in Cypher
-CREATE (src)-[:LIKES]->(dst)
-SET rel.prop = V
+CREATE (<node1-name>:<label1-name>)-
+  [(<relationship-name>:<relationship-label-name>)]
+  ->(<node2-name>:<label2-name>)
 
 # Insert edge of certain type in nGQL
 INSERT EDGE <edge_name> ( <prop_name_list> ) VALUES <src_vid> -> <dst_vid>: ( <prop_value_list> )
@@ -245,7 +240,7 @@ INSERT EDGE <edge_name> ( <prop_name_list> ) VALUES <src_vid> -> <dst_vid>: ( <p
 g.E(<eid>).drop()
 
 # Delete edge in Cypher
-MATCH ()-[r {condition}]->()
+MATCH (<node1-name>:<label1-name>)-[r:relationship-label-name]->()
 DELETE r
 
 # Delete edge in nGQL
@@ -259,7 +254,7 @@ DELETE EDGE <edge_type> <src_vid> -> <dst_vid>
 g.E(<eid>)
 
 # Fetch edges in Cypher
-MATCH ()-[r:FOLLOW]->()
+MATCH (n)-[r:label]->()
 WHERE condition
 RETURN properties(r)
 
@@ -278,7 +273,9 @@ In addition to the common CRUD on vertices and edges, we will also show you some
 g.V(<vid>).outE(<edge>)
 
 # Traverse edges with specified vertices in Cypher
-MATCH (n {condition})-[r:FOLLOW]->()
+Match (n)->[r:label]->[]
+WHERE id(n) = vid
+RETURN r
 
 # Traverse edges with specified vertices in nGQL
 GO FROM <vid> OVER <edge>
@@ -293,7 +290,7 @@ In reverse traverse, Gremlin uses `in` to indicate reversion, Cypher uses `<-`. 
 g.V(<vid>).in(<edge>)
 
 # Traverse edges reversely with specified vertices Cypher
-MATCH (n)<-[r:FOLLOW]-()
+MATCH (n)<-[r:label]-()
 
 # Traverse edges reversely with specified vertices nGQL
 GO FROM <vid>  OVER <edge> REVERSELY
@@ -301,17 +298,17 @@ GO FROM <vid>  OVER <edge> REVERSELY
 
 #### Traverse edges bidirectionally
 
-If the edge direction is [irrelevant](https://www.google.com/search?q=irrelevant&spell=1&sa=X&ved=2ahUKEwjR1fPGovvnAhUsIDQIHXSzDRIQkeECKAB6BAgOECs) (either direction is acceptable),  Gremlin uses `bothE()`, Cypher use `-[]-`, and nGQL use keyward `BIDIRECTLY`.
+If the edge direction is [irrelevant](https://www.google.com/search?q=irrelevant&spell=1&sa=X&ved=2ahUKEwjR1fPGovvnAhUsIDQIHXSzDRIQkeECKAB6BAgOECs) (either direction is acceptable),  Gremlin uses `bothE()`, Cypher use `-[]-`, and nGQL use keyward `BIDIRECT` .
 
 ```shell
 # Traverse edges reversely with specified vertices Gremlin
 g.V(<vid>).bothE(<edge>)
 
 # Traverse edges reversely with specified vertices Cypher
-MATCH (n)-[r:FOLLOW]-()
+MATCH (n)-[r:label]-()
 
 # Traverse edges reversely with specified vertices nGQL
-GO FROM <vid>  OVER <edge> BIDIRECTLY
+GO FROM <vid>  OVER <edge> BIDIRECT
 ```
 
 #### Query N hops along specified edge
@@ -323,8 +320,8 @@ Gremlin and nGQL use `times` and `STEP` respectively to represent N hops. Cypher
 g.V(<vid>).repeat(out(<edge>)).times(N)
 
 # Query N hops along specified edge in Cypher
-MATCH (n)-[r:FOLLOW*N]->()
-WHERE id(a) = vid
+MATCH (n)-[r:label*N]->()
+WHERE condition
 RETURN r
 
 # Query N hops along specified edge in nGQL
@@ -362,8 +359,9 @@ This example describes the relationships between the beings and places of the Ro
 
 ```bash
 # Inserting vertices
+## nGQL
 nebula> INSERT VERTEX character(name, age, type) VALUES hash("saturn"):("saturn", 10000, "titan"), hash("jupiter"):("jupiter", 5000, "god");
-
+## Gremlin
 gremlin> saturn = g.addV("character").property(T.id, 1).property('name', 'saturn').property('age', 10000).property('type', 'titan').next();
 ==>v[1]
 gremlin> jupiter = g.addV("character").property(T.id, 2).property('name', 'jupiter').property('age', 5000).property('type', 'god').next();
@@ -372,137 +370,176 @@ gremlin> prometheus = g.addV("character").property(T.id, 31).property('name',  '
 ==>v[31]
 gremlin> jesus = g.addV("character").property(T.id, 32).property('name',  'jesus').property('age', 5000).property('type', 'god').next();
 ==>v[32]
-
+## Cypher
 cypher> CREATE (src:character {name:"saturn", age: 10000, type:"titan"})
 cypher> CREATE (dst:character {name:"jupiter", age: 5000, type:"god"})
 
 # Inserting edges
+## nGQL
 nebula> INSERT EDGE father() VALUES hash("jupiter")->hash("saturn"):();
+## Gremlin
 gremlin> g.addE("father").from(jupiter).to(saturn).property(T.id, 13);
 ==>e[13][2-father->1]
+## Cypher
 cypher> CREATE (src)-[rel:father]->(dst)
 ```
 
 ### Deleting
 
 ```bash
+# nGQL
 nebula> DELETE VERTEX hash("prometheus");
+# Gremlin
 gremlin> g.V(prometheus).drop();
-cypher> MATCH (n:character {name:"prometheus"}) DETACH DELETE n
+# Cypher
+cypher> MATCH (n:character {name:"prometheus"}) DETACH DELETE n 
 ```
 
 ### Updating
 
 ```bash
+# nGQL
 nebula> UPDATE VERTEX hash("jesus") SET character.type = 'titan';
+# Gremlin
 gremlin> g.V(jesus).property('age', 6000);
-cypher> MATCH (n:character {name:"prometheus"}) SET n.type = 'titan';
+==>v[32]
+# Cypher
+cypher> MATCH (n:character {name:"jesus"}) SET n.type = 'titan';
 ```
 
 ### Fetching/Reading
 
 ```bash
+# nGQL
 nebula> FETCH PROP ON character hash("saturn");
 ===================================================
 | character.name | character.age | character.type |
 ===================================================
 | saturn         | 10000         | titan          |
 ---------------------------------------------------
-
+# Gremlin
 gremlin> g.V(saturn).valueMap();
 ==>[name:[saturn],type:[titan],age:[10000]]
-
-cypher> MATCH (n:character {name:"prometheus"}) RETURN properties(n)
+# Cypher
+cypher> MATCH (n:character {name:"saturn"}) RETURN properties(n)
+  ╒════════════════════════════════════════════╕
+  │"properties(n)"                             │
+  ╞════════════════════════════════════════════╡
+  │{"name":"saturn","type":"titan","age":10000}│
+  └────────────────────────────────────────────┘
 ```
 
 ### Finding the name of Hercules's Father
 
 ```bash
-nebula> GO FROM hash("hercules") OVER father YIELD $$.character.name;
+# nGQL
+nebula>  LOOKUP ON character WHERE character.name == 'hercules' | \
+      -> GO FROM $-.VertexID OVER father YIELD $$.character.name;
 =====================
 | $$.character.name |
 =====================
 | jupiter           |
 ---------------------
-
+# Gremlin
 gremlin> g.V().hasLabel('character').has('name','hercules').out('father').values('name');
 ==>jupiter
-
-cypher> MATCH (src:character{name:"prometheus"})-[:father]->(dst:character) RETURN dst.name
+# Cypher
+cypher> MATCH (src:character{name:"hercules"})-[:father]->(dst:character) RETURN dst.name
+      ╒══════════╕
+      │"dst.name"│
+      ╞══════════╡
+      │"jupiter" │
+      └──────────┘
 ```
 
 ### Finding the name of Hercules's Grandfather
 
 ```bash
-nebula> GO 2 STEPS FROM hash("hercules") OVER father YIELD  $$.character.name;
+# nGQL
+nebula> LOOKUP ON character WHERE character.name == 'hercules' | \
+     -> GO 2 STEPS FROM $-.VertexID OVER father YIELD $$.character.name;
 =====================
 | $$.character.name |
 =====================
 | saturn            |
 ---------------------
-
+# Gremlin
 gremlin> g.V().hasLabel('character').has('name','hercules').out('father').out('father').values('name');
 ==>saturn
-
-cypher> MATCH (src:character{name:"prometheus"})-[:father*2]->(dst:character)
-RETURN dst.name
+# Cypher
+cypher> MATCH (src:character{name:"hercules"})-[:father*2]->(dst:character) RETURN dst.name
+      ╒══════════╕
+      │"dst.name"│
+      ╞══════════╡
+      │"saturn"  │
+      └──────────┘
 ```
 
 ### Find the characters with age > 100
 
 ```bash
-nebula> LOOKUP ON character WHERE character.age > 100;
-gremlin> g.V().hasLabel('character').has('age', gt(100)).values('name');
+# nGQL
+nebula> LOOKUP ON character WHERE character.age > 100 YIELD character.name, character.age;
+=========================================================
+| VertexID             | character.name | character.age |
+=========================================================
+| 6761447489613431910  | pluto          | 4000          |
+---------------------------------------------------------
+| -5860788569139907963 | neptune        | 4500          |
+---------------------------------------------------------
+| 4863977009196259577  | jupiter        | 5000          |
+---------------------------------------------------------
+| -4316810810681305233 | saturn         | 10000         |
+---------------------------------------------------------
+# Gremlin
+gremlin> g.V().hasLabel('character').has('age',gt(100)).values('name');
 ==>saturn
 ==>jupiter
 ==>neptune
 ==>pluto
-
+# Cypher
 cypher> MATCH (src:character) WHERE src.age > 100 RETURN src.name
+      ╒═══════════╕
+      │"src.name" │
+      ╞═══════════╡
+      │  "saturn" │
+      ├───────────┤
+      │ "jupiter" │
+      ├───────────┤
+      │ "neptune" │
+      │───────────│
+      │  "pluto"  │
+      └───────────┘
 ```
 
 ### Find who are pluto's cohabitants, excluding pluto himself
 
 ```bash
-nebula>  GO FROM hash("pluto") OVER lives YIELD lives._dst AS place | \
-GO FROM $-.place OVER lives REVERSELY WHERE \
+# nGQL
+nebula>  GO FROM hash("pluto") OVER lives YIELD lives._dst AS place | GO FROM $-.place OVER lives REVERSELY WHERE \
 $$.character.name != "pluto" YIELD $$.character.name AS cohabitants;
 ===============
 | cohabitants |
 ===============
 | cerberus    |
 ---------------
-
+# Gremlin
 gremlin> g.V(pluto).out('lives').in('lives').where(is(neq(pluto))).values('name');
 ==>cerberus
-
+# Cypher
 cypher> MATCH (src:character{name:"pluto"})-[:lives]->()<-[:lives]-(dst:character) RETURN dst.name
+      ╒══════════╕
+      │"dst.name"│
+      ╞══════════╡
+      │"cerberus"│
+      └──────────┘
 ```
 
 ### Pluto's Brothers
 
 ```bash
-# where do pluto's brothers live?
-
-nebula> GO FROM hash("pluto") OVER brother YIELD brother._dst AS brother | \
-GO FROM $-.brother OVER lives YIELD $$.location.name;
-====================
-| $$.location.name |
-====================
-| sky              |
---------------------
-| sea              |
---------------------
-
-gremlin> g.V(pluto).out('brother').out('lives').values('name');
-==>sky
-==>sea
-
-cypher> MATCH (src:Character{name:"pluto"})-[:brother]->(bro:Character)-[:lives]->(dst)
-RETURN dst.name
-
 # which brother lives in which place?
-
+## nGQL
 nebula> GO FROM hash("pluto") OVER brother YIELD brother._dst AS god | \
 GO FROM $-.god OVER lives YIELD $^.character.name AS Brother, $$.location.name AS Habitations;
 =========================
@@ -512,13 +549,20 @@ GO FROM $-.god OVER lives YIELD $^.character.name AS Brother, $$.location.name A
 -------------------------
 | neptune | sea         |
 -------------------------
-
+## Gremlin
 gremlin> g.V(pluto).out('brother').as('god').out('lives').as('place').select('god','place').by('name');
 ==>[god:jupiter, place:sky]
 ==>[god:neptune, place:sea]
-
+## Cypher
 cypher> MATCH (src:Character{name:"pluto"})-[:brother]->(bro:Character)-[:lives]->(dst)
 RETURN bro.name, dst.name
+      ╒═════════════════════════╕
+      │"bro.name"    │"dst.name"│
+      ╞═════════════════════════╡
+      │ "jupiter"    │  "sky"   │
+      ├─────────────────────────┤
+      │ "neptune"    │ "sea"    │
+      └─────────────────────────┘
 ```
 
 In addition to the basic operations in the three graph query languages, we will work on another piece of comparison of advanced operations in these languages. Stay tuned!

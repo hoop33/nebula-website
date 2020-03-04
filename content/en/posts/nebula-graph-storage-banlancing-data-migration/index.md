@@ -12,10 +12,10 @@ In our post [_Storage Design_](https://github.com/vesoft-inc/nebula/blob/master/
 
 **Nebula Graph**'s service is composed of three parts: graph, storage and meta. In this post, we will introduce how to implement data (partition) and work-load balance in the storage service.
 
-The storage service can be scaled in or out horizontally by the `BALANCE` commands below: ~~`BALANCE`~~<br />~~There are two kinds of balance command:~~
+The storage service can be scaled in or out horizontally by the `BALANCE` commands below: 
 
-- `BALANCE DATA` ~~one~~ is used to migrate data from old machines to new machines~~, which is `BALANCE DATA`~~;
-- `BALANCE LEADER` ~~the other one ~~only changes the distribution of leader partition to balance the work load without moving data~~, which is `BALANCE LEADER`~~.
+- `BALANCE DATA`  is used to migrate data from old machines to new machines
+- `BALANCE LEADER` only changes the distribution of leader partition to balance the work load without moving data
 
 ## Table of Contents
 

@@ -70,7 +70,6 @@ CREATE SPACE gods
 ```
 
 ### 点
-
 图结构由点和边组成，一条边连接两个点。在 Gremlin 和 nGQL 中称之为 Vertex，Cypher 则称之为 Node。如何在图数据库中新建一个点呢？可以参考下面的语法
 
 ```shell
@@ -84,7 +83,7 @@ CREATE (:nodeLabel {property})
 INSERT VERTEX tagName (propNameList) VALUES vid:(tagKey propValue)
 ```
 
-## 点类型
+#### 点类型
 
 点允许有对应的类型，在 Gremlin 和 Cypher 叫 `label` ，在 nGQL 中为 `tag` 。点类型可对应有多种属性（Property），例如 _Person _可以有 _name_、_age _等属性。
 
@@ -98,9 +97,6 @@ INSERT VERTEX tagName (propNameList) VALUES vid:(tagKey propValue)
 # Gremlin 创建点类型
 g.addV(vertexLabel).property()
 
-# Cypher 创建点类型
-(n:label) 
-
 # nGQL 创建点类型
 CREATE tagName(PropNameList)
 ```
@@ -113,12 +109,13 @@ CREATE tagName(PropNameList)
 
 ```shell
 # Gremlin 查看（获取）点类型
-g.V().label()
+g.V().label().dedup();
 
-# Cypher 查看点类型
+# Cypher 查看点类型方法 1
 MATCH (n) 
 RETURN DISTINCT labels(n)
-## CALL db.labels();
+# Cypher 查看点类型方法 2
+CALL db.labels();
 
 # nGQL 查看点类型
 SHOW TAGS
@@ -136,7 +133,7 @@ SHOW TAGS
 g.addV(String vertexLabel).property()
 
 # Cypher 插入特定类型点
-CREATE (:Person {age: 16})
+CREATE (node:label) 
 
 # nGQL 插入特定类型点
 INSERT VERTEX <tag_name> (prop_name_list) VALUES <vid>:(prop_value_list)
@@ -153,20 +150,20 @@ MATCH (n)
 WHERE condition
 RETURN properties(n)
 
-# nGQL
+# nGQL 查看点
 FETCH PROP ON <tag_name> <vid>
 ```
 
 ##### 删除点
 
-术语篇中提过 nGQL 中删除操对应单词有 `Delete` 和 `Drop` ，在 nGQL 中 Delete 一般用于点边，Drop 用于 Schema 删除，这点和 SQL 的设计思路是一样的。
+术语篇中提过 nGQL 中删除操作对应单词有 `Delete` 和 `Drop` ，在 nGQL 中 Delete 一般用于点边，Drop 用于 Schema 删除，这点和 SQL 的设计思路是一样的。
 ```shell
 # Gremlin 删除点
 g.V(<vid>).drop()
 
 # Cypher 删除点
-MATCH (n:A) 
-DETACH DELETE n
+MATCH (node:label) 
+DETACH DELETE node
 
 # nGQL 删除点
 DELETE VERTEX <vid>
@@ -181,7 +178,7 @@ DELETE VERTEX <vid>
 g.V(<vid>).property()
 
 # Cypher 更新点
-SET n.name = V
+SET n.prop = V
 
 # nGQL 更新点
 UPDATE VERTEX <vid> SET <update_columns>
@@ -201,9 +198,6 @@ UPDATE VERTEX <vid> SET <update_columns>
 # Gremlin 创建边类型
 g.edgeLabel()
 
-# Cypher 创建边类型
-:relationship(proNameList)
-
 # nGQL 创建边类型
 CREATE EDGE edgeTypeName(propNameList)
 ```
@@ -212,21 +206,23 @@ CREATE EDGE edgeTypeName(propNameList)
 
 说完边类型应该进入到边的常规操作部分了
 
-##### 插入指定边类型
+##### 插入指定边类型的边
 
-可以看到和点的使用语法类似，只不过在 Cypher 和 nGQL 中分别使用 `-[]->` 和 `->` 来表示关系，而 Gremlin 则用 `to()` 关键词来标识指向关系，在使用这 3 种图查询语言的图数据库中的边均为有向边。
+可以看到和点的使用语法类似，只不过在 Cypher 和 nGQL 中分别使用 `-[]->` 和 `->` 来表示关系，而 Gremlin 则用 `to()` 关键词来标识指向关系，在使用这 3 种图查询语言的图数据库中的边均为有向边，下图左边为有向边，右边为无向边。
 
 ![image](https://user-images.githubusercontent.com/38887077/75741248-fbb00e80-5d44-11ea-9c80-0c11fd41a277.png)
 
+
 ```shell
-# Gremlin 插入指定边类型
+# Gremlin 插入指定边类型的边
 g.addE(String edgeLabel).from(v1).to(v2).property()
 
-# Cypher 插入指定边类型
-CREATE (src)-[:LIKES]->(dst)
-SET rel.prop = V
+# Cypher 插入指定边类型的边
+CREATE (<node1-name>:<label1-name>)-
+  [(<relationship-name>:<relationship-label-name>)]
+  ->(<node2-name>:<label2-name>)
 
-# nGQL 插入指定边类型
+# nGQL 插入指定边类型的边
 INSERT EDGE <edge_name> (<prop_name_list>) VALUES <src_vid> -> <dst_vid>: \
 (<prop_value_list>)
 ```
@@ -238,7 +234,7 @@ INSERT EDGE <edge_name> (<prop_name_list>) VALUES <src_vid> -> <dst_vid>: \
 g.E(<eid>).drop()
 
 # Cypher 删除边
-MATCH ()-[r {condition}]>()
+MATCH (<node1-name>:<label1-name>)-[r:relationship-label-name]->()
 DELETE r
 
 # nGQL 删除边
@@ -252,7 +248,7 @@ DELETE EDGE <edge_type> <src_vid> -> <dst_vid>
 g.E(<eid>)
 
 # Cypher 查看指定边
-MATCH (n)-[r:FOLLOW]->()
+MATCH (n)-[r:label]->()
 WHERE condition
 RETURN properties(r)
 
@@ -271,7 +267,8 @@ FETCH PROP ON <edge_name> <src_vid> -> <dst_vid>
 g.V(<vid>).outE(<edge>)
 
 # Cypher 指定点查指定边
-MATCH (n)-[r:FOLLOW]->()
+Match (n)->[r:label]->[]
+WHERE id(n) = vid
 RETURN r
 
 # nGQL 指定点查指定边
@@ -286,7 +283,7 @@ GO FROM <vid> OVER <edge>
 g.V(<vid>).inE(<edge>)
 
 # Cypher 沿指定点反向查询指定边
-MATCH (n)<-[r:FOLLOW]-()
+MATCH (n)<-[r:label]-()
 
 # nGQL 沿指定点反向查询指定边
 GO FROM <vid> OVER <edge> REVERSELY
@@ -294,17 +291,17 @@ GO FROM <vid> OVER <edge> REVERSELY
 
 #### 无向遍历
 
-如果在图中，边的方向不重要（正向、反向都可以），那 Gremlin 使用 `both()` ，Cypher 使用 `-[]-` ，nGQL使用关键词 `BIDIRECTLY` 。
+如果在图中，边的方向不重要（正向、反向都可以），那 Gremlin 使用 `both()` ，Cypher 使用 `-[]-` ，nGQL使用关键词 `BIDIRECT` 。
 
 ```shell
-# Traverse edges reversely with specified vertices Gremlin
+# Traverse edges with specified vertices Gremlin
 g.V(<vid>).bothE(<edge>)
 
-# Traverse edges reversely with specified vertices Cypher
-MATCH (n)-[r:FOLLOW]-()
+# Traverse edges with specified vertices Cypher
+MATCH (n)-[r:label]-()
 
-# Traverse edges reversely with specified vertices nGQL
-GO FROM <vid>  OVER <edge> BIDIRECTLY
+# Traverse edges with specified vertices nGQL
+GO FROM <vid>  OVER <edge> BIDIRECT
 ```
 
 #### 沿指定点查询指定边 N 跳
@@ -315,7 +312,7 @@ Gremlin 和 nGQL 分别用 times 和 step 来表示 N 跳关系，而 Cypher 用
 g.V(<vid>).repeat(out(<edge>)).times(N)
 
 # Cypher 沿指定点查询指定边 N 跳
-MATCH (n)-[r:FOLLOW*N]->()
+MATCH (n)-[r:label*N]->()
 WHERE condition
 RETURN r
 
@@ -352,8 +349,9 @@ FIND ALL PATH FROM <vid> TO <vid> OVER *
 
 ```bash
 # 插入点
+## nGQL
 nebula> INSERT VERTEX character(name, age, type) VALUES hash("saturn"):("saturn", 10000, "titan"), hash("jupiter"):("jupiter", 5000, "god");
-
+## Gremlin
 gremlin> saturn = g.addV("character").property(T.id, 1).property('name', 'saturn').property('age', 10000).property('type', 'titan').next();
 ==>v[1]
 gremlin> jupiter = g.addV("character").property(T.id, 2).property('name', 'jupiter').property('age', 5000).property('type', 'god').next();
@@ -362,97 +360,152 @@ gremlin> prometheus = g.addV("character").property(T.id, 31).property('name',  '
 ==>v[31]
 gremlin> jesus = g.addV("character").property(T.id, 32).property('name',  'jesus').property('age', 5000).property('type', 'god').next();
 ==>v[32]
-
+## Cypher
 cypher> CREATE (src:character {name:"saturn", age: 10000, type:"titan"})
 cypher> CREATE (dst:character {name:"jupiter", age: 5000, type:"god"})
 
 # 插入边
+## nGQL
 nebula> INSERT EDGE father() VALUES hash("jupiter")->hash("saturn"):();
+## Gremlin
 gremlin> g.addE("father").from(jupiter).to(saturn).property(T.id, 13);
 ==>e[13][2-father->1]
+## Cypher
 cypher> CREATE (src)-[rel:father]->(dst)
 ```
 
 ### 删除数据
 
 ```bash
+# nGQL
 nebula> DELETE VERTEX hash("prometheus");
+# Gremlin
 gremlin> g.V(prometheus).drop();
+# Cypher
 cypher> MATCH (n:character {name:"prometheus"}) DETACH DELETE n 
 ```
 
 ### 更新数据
 
 ```bash
+# nGQL
 nebula> UPDATE VERTEX hash("jesus") SET character.type = 'titan';
+# Gremlin
 gremlin> g.V(jesus).property('age', 6000);
-cypher> MATCH (n:character {name:"prometheus"}) SET n.type = 'titan';
+==>v[32]
+# Cypher
+cypher> MATCH (n:character {name:"jesus"}) SET n.type = 'titan';
 ```
 
 ### 查看数据
 
 ```bash
+# nGQL
 nebula> FETCH PROP ON character hash("saturn");
 ===================================================
 | character.name | character.age | character.type |
 ===================================================
 | saturn         | 10000         | titan          |
 ---------------------------------------------------
-
+# Gremlin
 gremlin> g.V(saturn).valueMap();
 ==>[name:[saturn],type:[titan],age:[10000]]
-
-cypher> MATCH (n:character {name:"prometheus"}) RETURN properties(n)
+# Cypher
+cypher> MATCH (n:character {name:"saturn"}) RETURN properties(n)
+  ╒════════════════════════════════════════════╕
+  │"properties(n)"                             │
+  ╞════════════════════════════════════════════╡
+  │{"name":"saturn","type":"titan","age":10000}│
+  └────────────────────────────────────────────┘
 ```
 
 ### 查询 hercules 的父亲
 
 ```bash
-nebula> GO FROM hash("hercules") OVER father YIELD $$.character.name;
+# nGQL
+nebula>  LOOKUP ON character WHERE character.name == 'hercules' | \
+      -> GO FROM $-.VertexID OVER father YIELD $$.character.name;
 =====================
 | $$.character.name |
 =====================
 | jupiter           |
 ---------------------
-
+# Gremlin
 gremlin> g.V().hasLabel('character').has('name','hercules').out('father').values('name');
 ==>jupiter
-
-cypher> MATCH (src:character{name:"prometheus"})-[:father]->(dst:character) RETURN dst.name
+# Cypher
+cypher> MATCH (src:character{name:"hercules"})-[:father]->(dst:character) RETURN dst.name
+      ╒══════════╕
+      │"dst.name"│
+      ╞══════════╡
+      │"jupiter" │
+      └──────────┘
 ```
 
 ### 查询 hercules 的祖父
 
 ```bash
-nebula> GO 2 STEPS FROM hash("hercules") OVER father YIELD  $$.character.name;
+# nGQL
+nebula> LOOKUP ON character WHERE character.name == 'hercules' | \
+     -> GO 2 STEPS FROM $-.VertexID OVER father YIELD $$.character.name;
 =====================
 | $$.character.name |
 =====================
 | saturn            |
 ---------------------
-
+# Gremlin
 gremlin> g.V().hasLabel('character').has('name','hercules').out('father').out('father').values('name');
 ==>saturn
-
-cypher> MATCH (src:character{name:"prometheus"})-[:father*2]->(dst:character) RETURN dst.name
+# Cypher
+cypher> MATCH (src:character{name:"hercules"})-[:father*2]->(dst:character) RETURN dst.name
+      ╒══════════╕
+      │"dst.name"│
+      ╞══════════╡
+      │"saturn"  │
+      └──────────┘
 ```
 
 ### 查询年龄大于 100 的人物
 
 ```bash
-nebula> LOOKUP ON character WHERE character.age > 100;
+# nGQL
+nebula> LOOKUP ON character WHERE character.age > 100 YIELD character.name, character.age;
+=========================================================
+| VertexID             | character.name | character.age |
+=========================================================
+| 6761447489613431910  | pluto          | 4000          |
+---------------------------------------------------------
+| -5860788569139907963 | neptune        | 4500          |
+---------------------------------------------------------
+| 4863977009196259577  | jupiter        | 5000          |
+---------------------------------------------------------
+| -4316810810681305233 | saturn         | 10000         |
+---------------------------------------------------------
+# Gremlin
 gremlin> g.V().hasLabel('character').has('age',gt(100)).values('name');
 ==>saturn
 ==>jupiter
 ==>neptune
 ==>pluto
-
+# Cypher
 cypher> MATCH (src:character) WHERE src.age > 100 RETURN src.name
+      ╒═══════════╕
+      │"src.name" │
+      ╞═══════════╡
+      │  "saturn" │
+      ├───────────┤
+      │ "jupiter" │
+      ├───────────┤
+      │ "neptune" │
+      │───────────│
+      │  "pluto"  │
+      └───────────┘
 ```
 
 ### 从一起居住的人物中排除 pluto 本人
 
 ```bash
+# nGQL
 nebula>  GO FROM hash("pluto") OVER lives YIELD lives._dst AS place | GO FROM $-.place OVER lives REVERSELY WHERE \
 $$.character.name != "pluto" YIELD $$.character.name AS cohabitants;
 ===============
@@ -460,37 +513,23 @@ $$.character.name != "pluto" YIELD $$.character.name AS cohabitants;
 ===============
 | cerberus    |
 ---------------
-
+# Gremlin
 gremlin> g.V(pluto).out('lives').in('lives').where(is(neq(pluto))).values('name');
 ==>cerberus
-
+# Cypher
 cypher> MATCH (src:character{name:"pluto"})-[:lives]->()<-[:lives]-(dst:character) RETURN dst.name
+      ╒══════════╕
+      │"dst.name"│
+      ╞══════════╡
+      │"cerberus"│
+      └──────────┘
 ```
 
 ### Pluto 的兄弟们
 
 ```bash
-# where do pluto's brothers live?
-
-nebula> GO FROM hash("pluto") OVER brother YIELD brother._dst AS brother | \
-GO FROM $-.brother OVER lives YIELD $$.location.name;
-====================
-| $$.location.name |
-====================
-| sky              |
---------------------
-| sea              |
---------------------
-
-gremlin> g.V(pluto).out('brother').out('lives').values('name');
-==>sky
-==>sea
-
-cypher> MATCH (src:Character{name:"pluto"})-[:brother]->(bro:Character)-[:lives]->(dst)
-RETURN dst.name
-
 # which brother lives in which place?
-
+## nGQL
 nebula> GO FROM hash("pluto") OVER brother YIELD brother._dst AS god | \
 GO FROM $-.god OVER lives YIELD $^.character.name AS Brother, $$.location.name AS Habitations;
 =========================
@@ -500,11 +539,18 @@ GO FROM $-.god OVER lives YIELD $^.character.name AS Brother, $$.location.name A
 -------------------------
 | neptune | sea         |
 -------------------------
-
+## Gremlin
 gremlin> g.V(pluto).out('brother').as('god').out('lives').as('place').select('god','place').by('name');
 ==>[god:jupiter, place:sky]
 ==>[god:neptune, place:sea]
-
+## Cypher
 cypher> MATCH (src:Character{name:"pluto"})-[:brother]->(bro:Character)-[:lives]->(dst)
 RETURN bro.name, dst.name
+      ╒═════════════════════════╕
+      │"bro.name"    │"dst.name"│
+      ╞═════════════════════════╡
+      │ "jupiter"    │  "sky"   │
+      ├─────────────────────────┤
+      │ "neptune"    │ "sea"    │
+      └─────────────────────────┘
 ```
