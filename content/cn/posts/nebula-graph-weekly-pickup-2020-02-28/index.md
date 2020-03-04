@@ -3,12 +3,11 @@ title: "Pick of the Week'20 | 第 9 周看点--2020 H1 RoadMap 发布"
 date: 2020-02-28
 description: "本周看点：Nebula Graph 2020 上半年 RoadMap 发布、Devs 24 小时在官方论坛 On call…"
 ---
-# Pick of the Week'20 | 第 8 周看点--索引、属性查询已上线
+# Pick of the Week'20 | 第 9 周看点--2020 H1 RoadMap 发布
 
 ![每周看点](https://user-images.githubusercontent.com/56643819/69411498-0ae7ef00-0d48-11ea-87fd-d0ddad4dcdf4.png)
 
 > 每周五 Nebula 为你播报每周看点，每周看点由本周大事件、用户问答、Nebula 产品动态和推荐阅读构成。
-
 
 这是 2020 年第 9 个工作周的周五，杭州来了一波小升温和大降温，你那天气如何？🌝 来和 Nebula 看看本周图数据库和 Nebula 有什么新看点~~
 
